@@ -12,15 +12,21 @@ from dotenv import load_dotenv
 import RPi.GPIO as GPIO
 import time
 
+load_dotenv()
+
+api_key = os.environ.get("GROQ_API_KEY")
 current_path = "/home/admin/daredevil"
 model = "meta-llama/llama-4-scout-17b-16e-instruct"
 #tld="us"
-tld="co.uk"
+#tld="co.uk"
 #tld="co.in"
-lang="en"
+#lang="en"
 
-tld="pt"
-lang="pt"
+#tld="pt"
+#lang="pt"
+
+tld = os.environ.get("tld", "pt")
+lang = os.environ.get("lang", "pt")
 
 pin = 17
 
@@ -101,12 +107,10 @@ def texto_para_audio(texto):
 # Loop principal
 print("Sistema pronto. Pressiona o botão para tirar uma foto.")
 try:
-    load_dotenv()
     # Usar numeração BCM dos GPIOs
     GPIO.setmode(GPIO.BCM)
     # Configurar o botão como entrada com pull-up
     GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    api_key = os.environ.get("GROQ_API_KEY")
     prompt = """You are a digital assistant designed to provide visual feedback for blind
 individuals, helping them navigate their surroundings. Upon receiving an image, describe
 in detail the key objects and structures, including their relative positions and contextual
