@@ -97,9 +97,12 @@ def obter_descricao(image, prompt, api_key, is_url=False):
 
 # Função para converter texto em áudio
 def texto_para_audio(texto):
+    print("start get audio")
     tts = gTTS(texto, lang=lang, tld=tld)
+    print("save audio")
     audio_path = f"{current_path}/audio/audio.mp3"
     tts.save(audio_path)
+    print("start play audio")
     #os.system(f"aplay {audio_path}")  # Ou "mpg123" se usares .mp3
     os.system(f"mpg123 {audio_path}")  # Ou "mpg123" se usares .mp3
     return audio_path
